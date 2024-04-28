@@ -1,0 +1,48 @@
+.user_skills ul{
+    /* list-style: none; */
+    width: auto;
+    height: auto;
+    /* background-color: red; */
+    /* margin: 0.5rem */
+}
+.user_skills ul{
+    justify-content: start;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap:0.5rem;
+    list-style: none;
+    margin-top: 2rem;
+    
+}
+
+.user_skills ul li {
+    padding: 0.2rem 0.8rem;
+    background-color: grey;
+    color:white;
+    border-radius: 10px;
+    margin: 0 0.5rem;
+    height: 1.8rem;
+    text-transform: capitalize;
+}
+
+.delete_skills{
+    font-size: 0.5rem;
+    position: absolute;
+    
+}
+
+@media screen and (max-width:465px) {
+    .user_skills ul{
+        justify-content: start;
+        align-items: center;
+        display: block;
+        list-style: none;
+        margin-top: 2rem;
+        
+    }
+
+    .user_skills ul li {
+        margin-top: 10px;
+    }
+}

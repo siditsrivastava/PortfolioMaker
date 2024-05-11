@@ -5,6 +5,7 @@ export const schema = Yup.object({
   lastName: Yup.string().min(5).required(""),
   emailId: Yup.string().email().required(""),
   mobileNo: Yup.string().max(10).min(10).required(""),
+  password: Yup.string().required(),
   gender: Yup.string().required(),
 
   // education section

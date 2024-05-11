@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./Home.css";
 import { schema } from "../schemas";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
   const [userRegistation, setuserRegistation] = useState({
@@ -11,8 +11,11 @@ const Home = () => {
     lastName: "",
     emailId: "",
     mobileNo: "",
+    password: "",
     gender: "",
   });
+
+  const [showPassword, setShowPassword] = useState(true);
 
   const navigate = useNavigate();
 
@@ -26,25 +29,32 @@ const Home = () => {
     setuserRegistation({ ...userRegistation, [name]: value });
   };
 
+  const handlePassword = () => {
+      setShowPassword(!showPassword);
+      setTimeout(() => {
+          setShowPassword(showPassword)
+      },500)
+   
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      
       await schema.validate(userRegistation, { abortEarly: false });
       // toast("Submit Successfully")
-      alert("successfully")
-       navigate("/Secondpage") 
+      alert("successfully");
+      navigate("/Secondpage");
       setuserRegistation({
         firstName: "",
         lastName: "",
         emailId: "",
         mobileNo: "",
+        password: "",
         gender: "",
       });
-     
     } catch (error) {
-      toast("Please the provide the data")
+      toast("Please the provide the data");
       const newError = {};
       error.inner.forEach((err) => {
         newError[err.path] = err.message;
@@ -61,7 +71,7 @@ const Home = () => {
           {/* <img src="" /> */}
           <form onSubmit={onSubmit} validationschema={schema}>
             <div className="formbold-form-title">
-              <h2 className="">Make your Profolio now</h2>
+              <h2 className="">Make your Portfolio now</h2>
               <p>
                 Fill your details and make your portfolio easily and simple.
               </p>
@@ -135,8 +145,31 @@ const Home = () => {
                   value={userRegistation.mobileNo}
                   placeholder="Phone Number"
                 />
-                {error.mobileNo && <div className="error">{error.mobileNo}</div>}
+                {error.mobileNo && (
+                  <div className="error">{error.mobileNo}</div>
+                )}
               </div>
+            </div>
+            <div className="formbold-mb-3">
+              <label className="formbold-form-label">Password</label>
+              <span className="formbold">
+                <input
+                  type={showPassword ? "password" : "text"}
+                  name="password"
+                  id="password"
+                  className="form-control"
+                  value={userRegistation.password}
+                  onChange={handlerInput}
+                  placeholder="password"
+                />
+                {showPassword ? (
+                  <i onClick={handlePassword} class="fa-regular fa-eye"></i>
+                ) : (
+                  <i onClick={handlePassword} class="fa-regular fa-eye-slash"></i>
+                )}
+              </span>
+
+              {error.gender && <div className="error">{error.gender}</div>}
             </div>
 
             <div className="formbold-mb-3">
@@ -166,7 +199,6 @@ const Home = () => {
                 <div className="formbold-relative">
                   <input
                     type="checkbox"
-                    // onClick={handleClick}
                     id="supportCheckbox"
                     checked
                     className="formbold-input-checkbox"
@@ -195,7 +227,7 @@ const Home = () => {
           </form>
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 };
